@@ -1,0 +1,431 @@
+---
+title: "Date and Time"
+author: "Adithi R. Upadhya"
+date: "11 August, 2022"
+format: 
+  revealjs:
+    theme: [ppt_theme.scss]
+    incremental: true
+   
+execute:
+  echo: true
+  cache: true
+---
+
+## Recap
+
+::: {.nonincremental}
+
+Mutating joins, filtering joins, and set operations. 
+:::
+
+::: footer
+[Learn more](https://www.tidyverse.org/packages/)
+:::
+
+
+
+## Prerequsities
+
+```{r warning = FALSE, message = FALSE}
+library(tidyverse) 
+library(lubridate)
+library(nycflights13)
+library(openair)
+```
+
+::: footer
+[Learn more](https://www.tidyverse.org/packages/)
+:::
+
+## Shortcut of the day
+
+`Crtl + Shift + N`
+
+</br>
+
+. . .
+
+::: {.fragment .highlight-red}
+Opens a new document.
+:::
+
+## Star of the day `lubridate`
+
+::: {.nonincremental}
+
+`lubridate` is an R package that makes it easier to work with dates and times.
+
+Date/times are represented in a unique class type.
+
+:::
+
+## Creating date/times
+::: {.nonincremental}
+There are three types of date/time data that refer to an instant in time:
+
+-   A date. Tibbles print this as `<date>`.
+
+-   A time within a day. Tibbles print this as `<time>`.
+
+- A date-time is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). Tibbles print this as `<dttm>`. 
+:::
+
+## Today's data `nycflights13`
+
+On-time data for a random sample of flights departing New York City airports in 2013.
+
+
+## To get today's time
+
+```{r}
+today()
+
+now()
+```
+## Create from a string
+
+::: {.nonincremental}
+
+Helpers `lubridate` in  automatically work out the format once you specify the order of the component. 
+
+To use them, identify the order in which year, month, and day appear in your dates, then arrange 'y', 'm', and 'd' in the same order. 
+
+:::
+
+```{r}
+ymd("2022-01-31")
+mdy("January 31st, 2022")
+dmy("31-Jan-2022")
+
+ymd_hms("2022-01-31 20:11:59")
+```
+## From individual date-time components
+
+To create a date/time from this sort of input, use `make_date()` for dates, or `make_datetime()` for date-times.
+
+```{r}
+new_flights <- flights %>% 
+  select(year, month, day, hour, minute)
+
+new_flights_date <- flights %>% 
+  select(year, month, day, hour, minute) %>% 
+  mutate(departure = make_datetime(year, month, day, hour, minute))
+```
+
+##  From other types
+
+::: {.nonincremental}
+
+Sometimes we may want to switch between a date-time and a date. 
+
+Then we use `as_datetime()` and `as_date()`.
+
+:::
+
+```{r}
+as_datetime(now())
+as_date(now())
+```
+## Quiz 1 
+
+::: {.nonincremental}
+
+Use the appropriate lubridate function to parse each of the following dates:
+
+::: columns
+::: {.column width="100%"}
+
+d1 <- "January 1, 2010"
+
+d2 <- "2015-Mar-07"
+
+d3 <- "06-Jun-2017"
+
+d4 <- c("August 19 (2015)", "July 1 (2015)")
+
+d5 <- "12/30/14" # Dec 30, 2014
+
+:::
+
+::: 
+
+:::
+
+## Quiz 1 - Solution
+
+Use the appropriate lubridate function to parse each of the following dates:
+
+```{r}
+d1 <- mdy("January 1, 2010")
+
+d2 <- ymd("2015-Mar-07")
+
+d3 <- dmy("06-Jun-2017")
+
+d4 <- mdy(c("August 19 (2015)", "July 1 (2015)"))
+
+d5 <- mdy("12/30/14") 
+```
+
+## Quiz 2
+
+What happens when you parse a string which is not a valid date, like the one shown below:
+
+```{r, eval = FALSE, message = FALSE, warning = FALSE}
+ymd(c("2010-10-10", "bananas"))
+```
+
+## Quiz 2 - Solution
+
+What happens when you parse a string which is not a valid date, like the one shown below:
+
+```{r}
+ymd(c("2010-10-10", "bananas"))
+```
+## Manipulating date and time
+
+::: {.nonincremental}
+
+In `lubridate` you can get and set individual components. 
+
+Pull out individual parts of the date with the accessor functions.
+
+:::
+
+```{r}
+datetime <- ymd_hms("2022-07-08 12:34:56")
+year(datetime)
+month(datetime)
+mday(datetime)
+yday(datetime)
+wday(datetime)
+```
+## Date-time components
+
+::: {.nonincremental}
+
+Using relevant arguments will show us the month abbreviations or full names. 
+
+Time components also extracted in the same way. 
+
+:::
+
+```{r}
+month(datetime, label = TRUE)
+wday(datetime, label = TRUE, abbr = FALSE)
+```
+
+```{r}
+hour(datetime)
+minute(datetime)
+second(datetime)
+```
+
+
+## Rounding
+
+::: {.nonincremental}
+
+An alternative approach to plotting individual components is to round the date to a nearby unit of time, with `floor_date()`, `round_date()`, and `ceiling_date()`.
+
+Each function takes a vector of dates to adjust and then the name of the unit round down (floor), round up (ceiling), or round to. 
+
+```{r}
+datetime <- ymd_hms("2022-07-08 12:34:56")
+ceiling_date(datetime, "min")
+floor_date(datetime, "hour")
+round_date(datetime, "month")
+```
+
+
+:::
+
+
+## Setting components
+
+::: {.nonincremental}
+
+We can use each accessor function to set the components of a date/time. 
+
+```{r}
+(datetime <- ymd_hms("2020-07-08 12:34:56"))
+
+year(datetime) <- 2022
+datetime
+
+month(datetime) <- 08
+datetime
+
+hour(datetime) <- hour(datetime) + 2
+datetime
+
+```
+:::
+
+## Or use a new function `update()`
+
+```{r}
+(datetime <- ymd_hms("2020-07-08 12:34:56"))
+
+update(datetime, year = 2020, month = 2, mday = 2, hour = 2)
+
+```
+
+## Quiz 3 
+
+::: {.nonincremental}
+
+Extract month, year, and day from the data shown below, make three new columns of these. Hint use mutate(). 
+You will have to install package called `openair` and then load it. 
+
+```{r}
+# install.packages("openair")
+library(openair)
+our_new_dataset <- openair::mydata %>% 
+  head(50)
+```
+
+:::
+
+
+## Quiz 3 - Solution
+
+::: {.nonincremental}
+
+Extract month and year from the data shown below, make three new columns of these. 
+
+```{r}
+our_new_mutated_dataset <- our_new_dataset %>% 
+  mutate(year_new_column = year(date), 
+         month_new_column = month(date))
+```
+
+:::
+
+
+## Quiz 4
+
+::: {.nonincremental}
+
+Using the data frame created above `our_new_mutated_dataset` set the year values to `2022` instead of `1998`. 
+
+::: columns
+::: {.column width="100%"}
+
+a)    floor_date(our_new_mutated_dataset$year_new_column, "year")
+b)    ymd(our_new_mutated_dataset$year_new_column) 
+
+::: {.fragment .highlight-red}
+c)   year(our_new_mutated_dataset$year_new_column) <- 2022 
+:::
+
+d)    year(year_new_column) <- 2022 
+:::
+
+:::
+
+:::
+
+## Time spans
+
+-   Durations, which represent an exact number of seconds.
+
+-   Periods, which represent human units like weeks and months.
+
+-   Intervals, which represent a starting and ending point.
+
+## Durations 
+
+::: {.nonincremental}
+
+-   In R if you subtract two dates you get a `difftime` object. 
+
+-   A `difftime` class object records a time span of seconds, minutes, hours, days, or weeks. 
+
+-   This ambiguity can make `difftimes` a little painful to work with, so `lubridate` provides an alternative which always uses seconds: the duration.
+
+```{r}
+my_age <- today() - ymd("1995-03-27")
+my_age
+as.duration(my_age)
+```
+:::
+
+
+## Durations 
+
+::: {.nonincremental}
+
+Durations come with a bunch of convenient constructors:
+
+```{r}
+dseconds(15)
+dminutes(10)
+dhours(c(12, 24))
+ddays(0:5)
+dweeks(3)
+dyears(1)
+```
+
+:::
+
+
+## Airthmetic with Durations
+
+::: {.nonincremental}
+
+```{r}
+2 * dyears(1)
+dyears(1) + dweeks(12) + dhours(15)
+today() + ddays(1)
+today() - dyears(1)
+```
+
+:::
+
+## Periods
+
+::: {.nonincremental}
+
+Periods are time spans but don’t have a fixed length in seconds, instead they work with “human” times, like days and months. 
+
+```{r}
+one_pm <- ymd_hms("2022-04-12 13:00:00", tz = "America/New_York")
+one_pm + ddays(1)
+```
+
+
+:::
+
+## Manipulate Periods
+
+Periods come with a bunch of convenient constructors:
+
+
+```{r}
+seconds(15)
+hours(c(12, 24))
+days(7)
+months(1:6)
+weeks(3)
+```
+
+## Airthmetic with Periods
+
+
+```{r}
+10 * (months(6) + days(1))
+ymd("2020-01-01") + dyears(1)
+```
+
+
+## Resources
+
+::: {.nonincremental}
+
+-   R for Data Science [Chapter 16](https://r4ds.had.co.nz/dates-and-times.html)
+-   Slides made using [Quarto](https://meghan.rbind.io/blog/quarto-slides/#quarto-resources)
+- More on [lubridate](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html#)
+
+:::
