@@ -400,6 +400,8 @@ one_pm + ddays(1)
 
 ## Manipulate Periods
 
+::: {.nonincremental}
+
 Periods come with a bunch of convenient constructors:
 
 
@@ -411,13 +413,54 @@ months(1:6)
 weeks(3)
 ```
 
+:::
+
+
 ## Airthmetic with Periods
+
 
 
 ```{r}
 10 * (months(6) + days(1))
 ymd("2020-01-01") + dyears(1)
 ```
+
+## Time zones
+
+::: {.nonincremental}
+
+-   The challenge is that everyday names of time zones tend to be ambiguous.
+
+-   You can find out what R thinks your current time zone is with `Sys.timezone()`.
+
+-   In R, the time zone is an attribute of the date-time that only controls printing. Unless otherwise specified, lubridate always uses UTC. 
+
+```{r}
+Sys.timezone()
+head(OlsonNames())
+```
+
+
+:::
+
+## Time zones 
+
+::: {.nonincremental}
+
+- Keep the instant in time the same, and change how it's displayed. Use this when the instant is correct, but you want a more natural display.
+
+```{r}
+x4a <- with_tz("2022-06-02 02:30:00", tzone = "Asia/Kolkata")
+x4a
+x4b <- force_tz(x4a, tzone = "America/New_York")
+x4b
+```
+
+:::
+
+## Quiz 5 
+
+
 
 
 ## Resources
@@ -429,3 +472,5 @@ ymd("2020-01-01") + dyears(1)
 - More on [lubridate](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html#)
 
 :::
+
+

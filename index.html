@@ -825,6 +825,7 @@
 </section>
 <section id="manipulate-periods" class="slide level2">
 <h2>Manipulate Periods</h2>
+<div>
 <p>Periods come with a bunch of convenient constructors:</p>
 <div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-21_b2a38558c90cd922da0d5adb5c56fbe3">
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a><span class="fu">seconds</span>(<span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -849,6 +850,7 @@
 <pre><code>[1] "21d 0H 0M 0S"</code></pre>
 </div>
 </div>
+</div>
 </section>
 <section id="airthmetic-with-periods" class="slide level2">
 <h2>Airthmetic with Periods</h2>
@@ -862,6 +864,50 @@
 <pre><code>[1] "2020-12-31 06:00:00 UTC"</code></pre>
 </div>
 </div>
+</section>
+<section id="time-zones" class="slide level2">
+<h2>Time zones</h2>
+<div>
+<ul>
+<li><p>The challenge is that everyday names of time zones tend to be ambiguous.</p></li>
+<li><p>You can find out what R thinks your current time zone is with <code>Sys.timezone()</code>.</p></li>
+<li><p>In R, the time zone is an attribute of the date-time that only controls printing. Unless otherwise specified, lubridate always uses UTC.</p></li>
+</ul>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-23_9e325f45b99b1e01fb7b3662100a8cae">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1"></a><span class="fu">Sys.timezone</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Asia/Calcutta"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1"></a><span class="fu">head</span>(<span class="fu">OlsonNames</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"
+[4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"     </code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="time-zones-1" class="slide level2">
+<h2>Time zones</h2>
+<div>
+<ul>
+<li>Keep the instant in time the same, and change how it’s displayed. Use this when the instant is correct, but you want a more natural display.</li>
+</ul>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-24_17599bfe965ddd016b40b61610833d0e">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1"></a>x4a <span class="ot">&lt;-</span> <span class="fu">with_tz</span>(<span class="st">"2022-06-02 02:30:00"</span>, <span class="at">tzone =</span> <span class="st">"Asia/Kolkata"</span>)</span>
+<span id="cb107-2"><a href="#cb107-2"></a>x4a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2022-06-02 02:30:00 IST"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1"></a>x4b <span class="ot">&lt;-</span> <span class="fu">force_tz</span>(x4a, <span class="at">tzone =</span> <span class="st">"America/New_York"</span>)</span>
+<span id="cb109-2"><a href="#cb109-2"></a>x4b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2022-06-02 02:30:00 EDT"</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="time-zone" class="slide level2">
+<h2>Time zone</h2>
 </section>
 <section id="resources" class="slide level2">
 <h2>Resources</h2>
