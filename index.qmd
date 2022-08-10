@@ -146,7 +146,7 @@ as_date(now())
 ```
 
 
-## Quiz 1  {background-color="#f0f1eb"}
+## Quiz 1  
 
 ::: {.panel-tabset}
 
@@ -192,7 +192,7 @@ d5 <- mdy("12/30/14")
 
 :::
 
-## Quiz 2 {background-color="#f0f1eb"}
+## Quiz 2 
 
 ::: {.panel-tabset}
 
@@ -304,7 +304,7 @@ update(datetime, year = 2020, month = 2, mday = 2, hour = 2)
 
 ```
 
-## Quiz 3 {background-color="#f0f1eb"}
+## Quiz 3 
 
 ::: {.panel-tabset}
 
@@ -341,7 +341,7 @@ our_new_mutated_dataset <- our_new_dataset %>%
 :::
 
 
-## Quiz 4 {background-color="#f0f1eb"}
+## Quiz 4 
 
 ::: {.nonincremental}
 
@@ -462,6 +462,30 @@ weeks(3)
 ymd("2020-01-01") + dyears(1)
 ```
 
+## Intervals
+
+::: {.nonincremental}
+
+An interval is a duration with a starting point: that makes it precise so you can determine exactly how long it is.
+
+```{r}
+next_year <- today() + years(1)
+(today() %--% next_year) / ddays(1)
+```
+
+:::
+
+
+## What to use??
+
+::: {.nonincremental}
+
+Pick the simplest data structure that solves your problem. 
+
+If you only care about physical time, use a duration; if you need to add human times, use a period; if you need to figure out how long a span is in human units, use an interval.
+
+:::
+
 ## Time zones
 
 ::: {.panel-tabset}
@@ -489,10 +513,12 @@ head(OlsonNames())
 - Keep the instant in time the same, and change how it's displayed. Use this when the instant is correct, but you want a more natural display.
 
 ```{r}
-x4a <- with_tz("2022-06-02 02:30:00", tzone = "Asia/Kolkata")
-x4a
-x4b <- force_tz(x4a, tzone = "America/New_York")
-x4b
+xa <- with_tz("2022-06-02 02:30:00", tzone = "Asia/Kolkata")
+xa
+xb <- force_tz(xa, tzone = "America/New_York")
+xb
+xc <- mdy_hms("09/12/2021 09:00:10", tz = "Asia/Kolkata")
+xc
 ```
 
 :::
@@ -500,7 +526,276 @@ x4b
 :::
 
 
-## Quiz 5 
+## Quiz 5.1
+
+::: {.panel-tabset}
+
+### Question
+
+::: {.incremental}
+
+Read two files provided in the [link](https://drive.google.com/drive/folders/1azPWXaNOyhQB1js3Ne-xt_efFeWyuYnT) and name them as join_data_1 and join_data_2 accordingly. 
+
+Hint `read_csv()` and `summary()`.
+
+:::
+
+### Solution
+
+::: {.nonincremental}
+
+```{r message = FALSE, warning = FALSE}
+join_data_1 <- read_csv("join_data1.csv")
+join_data_2 <- read_csv("join_data2.csv") 
+```
+
+```{r message = FALSE, warning = FALSE, eval = FALSE}
+summary(join_data_1)
+summary(join_data_2)
+```
+:::
+
+:::
+
+
+
+## Quiz 5.2
+
+::: {.nonincremental}
+
+Identify the keys in both the tables.
+
+::: {.fragment .highlight-red}
+
+a)    date or Date
+
+:::
+
+b)    area or Area
+
+::: {.fragment .highlight-red}
+
+c)   date and area or Date and Area
+
+:::
+
+d)    ...1 or ...1
+
+:::
+
+## Quiz 5.3 
+
+::: {.panel-tabset}
+
+### Question
+
+::: {.incremental}
+
+Convert the `date` column in `join_data_1` and the `Date` column in `join_data_2` to a datetime object with the timezone as "Asia/Kolkata".
+
+::: {.fragment .highlight-blue}
+
+Hint `ymd_hms()` for `date` column in join_data_1 and `dmy_hms()` for `Date` column in join_data_2. Mention the timezone.
+
+:::
+
+:::
+
+### Solution
+
+::: {.nonincremental}
+
+```{r message = FALSE, warning = FALSE}
+join_data_1$date <- ymd_hms(join_data_1$date, tz = "Asia/Kolkata")
+join_data_2$Date <- dmy_hms(join_data_2$Date, tz = "Asia/Kolkata")
+```
+:::
+
+:::
+
+
+## Quiz 5.4 
+
+::: {.panel-tabset}
+
+::: {.incremental}
+
+### Question
+
+Join the two tables (`join_data_1` and `join_data_2`) to get a data frame called `new_joined_df` which contains all columns and all rows from both the tables using the key identified above. 
+
+::: {.fragment .highlight-blue}
+
+Hint `full_join()`.
+
+:::
+
+:::
+
+### Solution
+
+::: {.nonincremental}
+
+```{r message = FALSE, warning = FALSE}
+new_joined_df <- full_join(join_data_1, join_data_2, by = c("date" = "Date", 
+                                                            "area" = "Area"))
+```
+:::
+
+:::
+
+
+## Quiz 5.5
+
+::: {.panel-tabset}
+
+::: {.incremental}
+
+### Question
+
+Remove the `so2` column.
+
+:::
+
+### Solution
+
+::: {.nonincremental}
+
+```{r message = FALSE, warning = FALSE}
+new_joined_df <- new_joined_df %>% 
+  select(everything(), - so2)
+```
+:::
+
+:::
+
+## Quiz 5.6 
+
+::: {.panel-tabset}
+
+::: {.incremental}
+
+### Question
+
+Extract areas which match with "BLR".
+
+::: {.fragment .highlight-blue}
+
+Hint `filter()`.
+
+:::
+
+:::
+
+### Solution
+
+::: {.nonincremental}
+
+```{r message = FALSE, warning = FALSE}
+new_joined_df <- new_joined_df %>% 
+  filter(area == "BLR")
+```
+:::
+
+:::
+
+
+## Quiz 5.7 
+
+::: {.panel-tabset}
+
+::: {.incremental}
+
+### Question
+
+Add a new column called ratio which is equal to pm25 / pm10.
+
+::: {.fragment .highlight-blue}
+
+Hint `mutate()`.
+
+:::
+
+:::
+
+### Solution
+
+::: {.nonincremental}
+
+```{r message = FALSE, warning = FALSE}
+new_joined_df <- new_joined_df %>% 
+  mutate(ratio = pm25 / pm10)
+```
+:::
+
+:::
+
+
+
+## Quiz 5.8 
+
+::: {.panel-tabset}
+
+::: {.incremental}
+
+### Question
+
+Make a scatter plot between pm25 vs pm10 using ggplot.
+
+::: {.fragment .highlight-blue}
+
+Hint `geom_point()`.
+
+:::
+
+:::
+
+### Solution
+
+::: {.nonincremental}
+
+```{r message = FALSE, warning = FALSE}
+ new_joined_df %>% 
+  ggplot(aes(pm25, pm10)) + 
+  geom_point()
+```
+:::
+
+:::
+
+
+
+
+## Quiz 5.9 
+
+::: {.panel-tabset}
+
+::: {.incremental}
+
+### Question
+
+Make a time-series plot of ratio using ggplot.
+
+::: {.fragment .highlight-blue}
+
+Hint `geom_line()`.
+
+:::
+
+:::
+
+### Solution
+
+::: {.nonincremental}
+
+```{r message = FALSE, warning = FALSE}
+ new_joined_df %>% 
+  ggplot(aes(date, ratio)) + 
+  geom_line()
+```
+:::
+
+:::
 
 
 
