@@ -1,0 +1,298 @@
+---
+title: "Date and Time"
+author: "Adithi R Upadhya"
+date: "2022-08-10"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_download: true
+---
+
+## Load Packages
+
+```{r warning = FALSE, message = FALSE}
+library(tidyverse) 
+library(lubridate)
+library(nycflights13)
+library(openair)
+```
+
+## Get today's date and time 
+
+```{r}
+today()
+
+now()
+```
+
+## Create a date time object from a string 
+
+```{r}
+ymd("2022-01-31")
+mdy("January 31st, 2022")
+dmy("31-Jan-2022")
+
+ymd_hms("2022-01-31 20:11:59")
+```
+
+## Create a date time object from individual components
+
+
+```{r}
+new_flights <- flights %>% 
+  select(year, month, day, hour, minute)
+
+new_flights_date <- flights %>% 
+  select(year, month, day, hour, minute) %>% 
+  mutate(departure = make_datetime(year, month, day, hour, minute))
+```
+
+
+## From other types
+
+```{r}
+as_datetime(now())
+as_date(now())
+```
+
+## Quiz 1
+
+```{r}
+d1 <- mdy("January 1, 2010")
+
+d2 <- ymd("2015-Mar-07")
+
+d3 <- dmy("06-Jun-2017")
+
+d4 <- mdy(c("August 19 (2015)", "July 1 (2015)"))
+
+d5 <- mdy("12/30/14") 
+```
+
+## Quiz 2
+
+```{r}
+ymd(c("2010-10-10", "bananas"))
+```
+
+## Manipulating date and time 
+
+```{r}
+datetime <- ymd_hms("2022-07-08 12:34:56")
+year(datetime)
+month(datetime)
+mday(datetime)
+yday(datetime)
+wday(datetime)
+```
+
+
+## Date time components
+
+```{r}
+month(datetime, label = TRUE)
+wday(datetime, label = TRUE, abbr = FALSE)
+```
+
+```{r}
+hour(datetime)
+minute(datetime)
+second(datetime)
+```
+
+## Rounding
+
+```{r}
+datetime <- ymd_hms("2022-07-08 12:34:56")
+ceiling_date(datetime, "min")
+floor_date(datetime, "hour")
+round_date(datetime, "month")
+```
+
+## Setting components
+
+```{r}
+(datetime <- ymd_hms("2020-07-08 12:34:56"))
+
+year(datetime) <- 2022
+datetime
+
+month(datetime) <- 08
+datetime
+
+hour(datetime) <- hour(datetime) + 2
+datetime
+
+```
+
+## Using `update()` 
+
+```{r}
+(datetime <- ymd_hms("2020-07-08 12:34:56"))
+
+update(datetime, year = 2020, month = 2, mday = 2, hour = 2)
+
+```
+
+## Quiz 3 
+
+```{r}
+# install.packages("openair")
+library(openair)
+our_new_dataset <- openair::mydata %>% 
+  head(50)
+```
+
+
+```{r}
+our_new_mutated_dataset <- our_new_dataset %>% 
+  mutate(year_new_column = year(date), 
+         month_new_column = month(date))
+```
+
+## Durations 
+
+```{r}
+my_age <- today() - ymd("1995-03-27")
+my_age
+as.duration(my_age)
+```
+
+## Different durations 
+
+```{r}
+dseconds(15)
+dminutes(10)
+dhours(c(12, 24))
+ddays(0:5)
+dweeks(3)
+dyears(1)
+```
+
+## Airthmetic with Durations
+
+```{r}
+2 * dyears(1)
+dyears(1) + dweeks(12) + dhours(15)
+today() + ddays(1)
+today() - dyears(1)
+```
+
+## Periods 
+
+```{r}
+one_pm <- ymd_hms("2022-04-12 13:00:00", tz = "America/New_York")
+one_pm + ddays(1)
+```
+
+## Manipulating Periods 
+
+
+```{r}
+seconds(15)
+hours(c(12, 24))
+days(7)
+months(1:6)
+weeks(3)
+```
+
+## Airthmetic with Periods
+
+```{r}
+10 * (months(6) + days(1))
+ymd("2020-01-01") + dyears(1)
+```
+
+## Intervals 
+
+```{r}
+next_year <- today() + years(1)
+(today() %--% next_year) / ddays(1)
+```
+
+## Available time zones
+
+```{r}
+Sys.timezone()
+head(OlsonNames())
+```
+
+## Set time zones
+
+```{r}
+xa <- with_tz("2022-06-02 02:30:00", tzone = "Asia/Kolkata")
+xa
+xb <- force_tz(xa, tzone = "America/New_York")
+xb
+xc <- mdy_hms("09/12/2021 09:00:10", tz = "Asia/Kolkata")
+xc
+```
+
+## Quiz 5.1
+
+```{r message = FALSE, warning = FALSE}
+join_data_1 <- read_csv("join_data1.csv")
+join_data_2 <- read_csv("join_data2.csv") 
+```
+
+
+```{r message = FALSE, warning = FALSE, eval = FALSE}
+summary(join_data_1)
+summary(join_data_2)
+```
+
+## Quiz 5.3
+
+```{r message = FALSE, warning = FALSE}
+join_data_1$date <- ymd_hms(join_data_1$date, tz = "Asia/Kolkata")
+join_data_2$Date <- dmy_hms(join_data_2$Date, tz = "Asia/Kolkata")
+```
+
+## Quiz 5.4
+
+```{r message = FALSE, warning = FALSE}
+new_joined_df <- full_join(join_data_1, join_data_2, by = c("date" = "Date", 
+                                                            "area" = "Area"))
+```
+
+## Quiz 5.5
+
+```{r message = FALSE, warning = FALSE}
+new_joined_df <- new_joined_df %>% 
+  select(everything(), - so2)
+```
+
+## Quiz 5.6
+
+```{r message = FALSE, warning = FALSE}
+new_joined_df <- new_joined_df %>% 
+  filter(area == "BLR")
+```
+
+
+## Quiz 5.7
+
+```{r message = FALSE, warning = FALSE}
+new_joined_df <- new_joined_df %>% 
+  mutate(ratio = pm25 / pm10)
+```
+
+## Quiz 5.8
+
+```{r message = FALSE, warning = FALSE}
+ new_joined_df %>% 
+  ggplot(aes(pm25, pm10)) + 
+  geom_point()
+```
+
+## Quiz 5.9
+
+```{r message = FALSE, warning = FALSE}
+ new_joined_df %>% 
+  ggplot(aes(date, ratio)) + 
+  geom_line()
+```
+
+
+
