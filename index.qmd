@@ -532,28 +532,30 @@ xc
 
 ### Question
 
-::: {.incremental}
 
 Read two files provided in the [link](https://drive.google.com/drive/folders/1azPWXaNOyhQB1js3Ne-xt_efFeWyuYnT) and name them as join_data_1 and join_data_2 accordingly. 
 
 Hint `read_csv()` and `summary()`.
 
-:::
+
 
 ### Solution
 
-::: {.nonincremental}
 
 ```{r message = FALSE, warning = FALSE}
 join_data_1 <- read_csv("join_data1.csv")
 join_data_2 <- read_csv("join_data2.csv") 
 ```
 
+</br>
+
+
+
 ```{r message = FALSE, warning = FALSE, eval = FALSE}
 summary(join_data_1)
 summary(join_data_2)
 ```
-:::
+
 
 :::
 
@@ -589,27 +591,21 @@ d)    ...1 or ...1
 
 ### Question
 
-::: {.incremental}
 
 Convert the `date` column in `join_data_1` and the `Date` column in `join_data_2` to a datetime object with the timezone as "Asia/Kolkata".
 
-::: {.fragment .highlight-blue}
 
 Hint `ymd_hms()` for `date` column in join_data_1 and `dmy_hms()` for `Date` column in join_data_2. Mention the timezone.
 
-:::
 
-:::
 
 ### Solution
-
-::: {.nonincremental}
 
 ```{r message = FALSE, warning = FALSE}
 join_data_1$date <- ymd_hms(join_data_1$date, tz = "Asia/Kolkata")
 join_data_2$Date <- dmy_hms(join_data_2$Date, tz = "Asia/Kolkata")
 ```
-:::
+
 
 :::
 
@@ -618,29 +614,20 @@ join_data_2$Date <- dmy_hms(join_data_2$Date, tz = "Asia/Kolkata")
 
 ::: {.panel-tabset}
 
-::: {.incremental}
-
 ### Question
 
 Join the two tables (`join_data_1` and `join_data_2`) to get a data frame called `new_joined_df` which contains all columns and all rows from both the tables using the key identified above. 
 
-::: {.fragment .highlight-blue}
-
 Hint `full_join()`.
-
-:::
-
-:::
 
 ### Solution
 
-::: {.nonincremental}
 
 ```{r message = FALSE, warning = FALSE}
 new_joined_df <- full_join(join_data_1, join_data_2, by = c("date" = "Date", 
                                                             "area" = "Area"))
 ```
-:::
+
 
 :::
 
@@ -649,23 +636,18 @@ new_joined_df <- full_join(join_data_1, join_data_2, by = c("date" = "Date",
 
 ::: {.panel-tabset}
 
-::: {.incremental}
-
 ### Question
 
 Remove the `so2` column.
 
-:::
-
 ### Solution
 
-::: {.nonincremental}
 
 ```{r message = FALSE, warning = FALSE}
 new_joined_df <- new_joined_df %>% 
   select(everything(), - so2)
 ```
-:::
+
 
 :::
 
@@ -673,29 +655,20 @@ new_joined_df <- new_joined_df %>%
 
 ::: {.panel-tabset}
 
-::: {.incremental}
-
 ### Question
 
 Extract areas which match with "BLR".
 
-::: {.fragment .highlight-blue}
 
 Hint `filter()`.
 
-:::
-
-:::
-
 ### Solution
 
-::: {.nonincremental}
 
 ```{r message = FALSE, warning = FALSE}
 new_joined_df <- new_joined_df %>% 
   filter(area == "BLR")
 ```
-:::
 
 :::
 
@@ -704,23 +677,15 @@ new_joined_df <- new_joined_df %>%
 
 ::: {.panel-tabset}
 
-::: {.incremental}
 
 ### Question
 
 Add a new column called ratio which is equal to pm25 / pm10.
 
-::: {.fragment .highlight-blue}
-
 Hint `mutate()`.
-
-:::
-
-:::
 
 ### Solution
 
-::: {.nonincremental}
 
 ```{r message = FALSE, warning = FALSE}
 new_joined_df <- new_joined_df %>% 
@@ -728,31 +693,20 @@ new_joined_df <- new_joined_df %>%
 ```
 :::
 
-:::
-
-
 
 ## Quiz 5.8 
 
 ::: {.panel-tabset}
 
-::: {.incremental}
-
 ### Question
 
 Make a scatter plot between pm25 vs pm10 using ggplot.
 
-::: {.fragment .highlight-blue}
-
 Hint `geom_point()`.
 
-:::
-
-:::
 
 ### Solution
 
-::: {.nonincremental}
 
 ```{r message = FALSE, warning = FALSE}
  new_joined_df %>% 
@@ -761,43 +715,30 @@ Hint `geom_point()`.
 ```
 :::
 
-:::
-
-
 
 
 ## Quiz 5.9 
 
 ::: {.panel-tabset}
 
-::: {.incremental}
 
 ### Question
 
 Make a time-series plot of ratio using ggplot.
 
-::: {.fragment .highlight-blue}
-
 Hint `geom_line()`.
 
-:::
-
-:::
 
 ### Solution
 
-::: {.nonincremental}
 
 ```{r message = FALSE, warning = FALSE}
  new_joined_df %>% 
   ggplot(aes(date, ratio)) + 
   geom_line()
 ```
-:::
 
 :::
-
-
 
 
 ## Resources

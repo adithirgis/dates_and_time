@@ -972,21 +972,18 @@
 <ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">Question</a></li><li><a href="#tabset-5-2">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1">
-<div>
 <p>Read two files provided in the <a href="https://drive.google.com/drive/folders/1azPWXaNOyhQB1js3Ne-xt_efFeWyuYnT">link</a> and name them as join_data_1 and join_data_2 accordingly.</p>
 <p>Hint <code>read_csv()</code> and <code>summary()</code>.</p>
 </div>
-</div>
 <div id="tabset-5-2">
-<div>
 <div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-27_eb70f90a521657e5f4f72dc544e6571a">
 <div class="sourceCode cell-code" id="cb116"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1"></a>join_data_1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"join_data1.csv"</span>)</span>
 <span id="cb116-2"><a href="#cb116-2"></a>join_data_2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"join_data2.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><br></p>
 <div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-28_59cb48f76ea9359d0f42a0c11577af8d">
 <div class="sourceCode cell-code" id="cb117"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1"></a><span class="fu">summary</span>(join_data_1)</span>
 <span id="cb117-2"><a href="#cb117-2"></a><span class="fu">summary</span>(join_data_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -1020,19 +1017,13 @@
 <ul id="tabset-6" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-6-1">Question</a></li><li><a href="#tabset-6-2">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1">
-<div>
 <p>Convert the <code>date</code> column in <code>join_data_1</code> and the <code>Date</code> column in <code>join_data_2</code> to a datetime object with the timezone as “Asia/Kolkata”.</p>
-<div class="fragment highlight-blue">
 <p>Hint <code>ymd_hms()</code> for <code>date</code> column in join_data_1 and <code>dmy_hms()</code> for <code>Date</code> column in join_data_2. Mention the timezone.</p>
 </div>
-</div>
-</div>
 <div id="tabset-6-2">
-<div>
 <div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-29_aa24a011028bd8b90741164a17827760">
 <div class="sourceCode cell-code" id="cb118"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1"></a>join_data_1<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(join_data_1<span class="sc">$</span>date, <span class="at">tz =</span> <span class="st">"Asia/Kolkata"</span>)</span>
 <span id="cb118-2"><a href="#cb118-2"></a>join_data_2<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">dmy_hms</span>(join_data_2<span class="sc">$</span>Date, <span class="at">tz =</span> <span class="st">"Asia/Kolkata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -1041,14 +1032,16 @@
 <section id="quiz-5.4" class="slide level2">
 <h2>Quiz 5.4</h2>
 <div class="panel-tabset">
-<ul id="tabset-7" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-7-1">Solution</a></li></ul>
+<ul id="tabset-7" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-7-1">Question</a></li><li><a href="#tabset-7-2">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1">
-<div>
+<p>Join the two tables (<code>join_data_1</code> and <code>join_data_2</code>) to get a data frame called <code>new_joined_df</code> which contains all columns and all rows from both the tables using the key identified above.</p>
+<p>Hint <code>full_join()</code>.</p>
+</div>
+<div id="tabset-7-2">
 <div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-30_15025ea6d449802dc52f93258f898852">
 <div class="sourceCode cell-code" id="cb119"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1"></a>new_joined_df <span class="ot">&lt;-</span> <span class="fu">full_join</span>(join_data_1, join_data_2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"date"</span> <span class="ot">=</span> <span class="st">"Date"</span>, </span>
 <span id="cb119-2"><a href="#cb119-2"></a>                                                            <span class="st">"area"</span> <span class="ot">=</span> <span class="st">"Area"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -1057,14 +1050,15 @@
 <section id="quiz-5.5" class="slide level2">
 <h2>Quiz 5.5</h2>
 <div class="panel-tabset">
-<ul id="tabset-8" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-8-1">Solution</a></li></ul>
+<ul id="tabset-8" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-8-1">Question</a></li><li><a href="#tabset-8-2">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1">
-<div>
+<p>Remove the <code>so2</code> column.</p>
+</div>
+<div id="tabset-8-2">
 <div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-31_77df36cb5e45c0990fb7bfbbadf57012">
 <div class="sourceCode cell-code" id="cb120"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1"></a>new_joined_df <span class="ot">&lt;-</span> new_joined_df <span class="sc">%&gt;%</span> </span>
 <span id="cb120-2"><a href="#cb120-2"></a>  <span class="fu">select</span>(<span class="fu">everything</span>(), <span class="sc">-</span> so2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -1073,14 +1067,16 @@
 <section id="quiz-5.6" class="slide level2">
 <h2>Quiz 5.6</h2>
 <div class="panel-tabset">
-<ul id="tabset-9" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-9-1">Solution</a></li></ul>
+<ul id="tabset-9" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-9-1">Question</a></li><li><a href="#tabset-9-2">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-9-1">
-<div>
+<p>Extract areas which match with “BLR”.</p>
+<p>Hint <code>filter()</code>.</p>
+</div>
+<div id="tabset-9-2">
 <div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-32_ba000ae17701fa7dc2d1a2bcd846ddf7">
 <div class="sourceCode cell-code" id="cb121"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1"></a>new_joined_df <span class="ot">&lt;-</span> new_joined_df <span class="sc">%&gt;%</span> </span>
 <span id="cb121-2"><a href="#cb121-2"></a>  <span class="fu">filter</span>(area <span class="sc">==</span> <span class="st">"BLR"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -1089,14 +1085,16 @@
 <section id="quiz-5.7" class="slide level2">
 <h2>Quiz 5.7</h2>
 <div class="panel-tabset">
-<ul id="tabset-10" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-10-1">Solution</a></li></ul>
+<ul id="tabset-10" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-10-1">Question</a></li><li><a href="#tabset-10-2">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-10-1">
-<div>
+<p>Add a new column called ratio which is equal to pm25 / pm10.</p>
+<p>Hint <code>mutate()</code>.</p>
+</div>
+<div id="tabset-10-2">
 <div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-33_71254284082df662a2ffb42e3f050536">
 <div class="sourceCode cell-code" id="cb122"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1"></a>new_joined_df <span class="ot">&lt;-</span> new_joined_df <span class="sc">%&gt;%</span> </span>
 <span id="cb122-2"><a href="#cb122-2"></a>  <span class="fu">mutate</span>(<span class="at">ratio =</span> pm25 <span class="sc">/</span> pm10)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -1105,10 +1103,13 @@
 <section id="quiz-5.8" class="slide level2">
 <h2>Quiz 5.8</h2>
 <div class="panel-tabset">
-<ul id="tabset-11" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-11-1">Solution</a></li></ul>
+<ul id="tabset-11" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-11-1">Question</a></li><li><a href="#tabset-11-2">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-11-1">
-<div>
+<p>Make a scatter plot between pm25 vs pm10 using ggplot.</p>
+<p>Hint <code>geom_point()</code>.</p>
+</div>
+<div id="tabset-11-2">
 <div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-34_d3ca53b22073c2cae370accefdd881de">
 <div class="sourceCode cell-code" id="cb123"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1"></a> new_joined_df <span class="sc">%&gt;%</span> </span>
 <span id="cb123-2"><a href="#cb123-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(pm25, pm10)) <span class="sc">+</span> </span>
@@ -1120,22 +1121,23 @@
 </div>
 </div>
 </div>
-</div>
 </section>
 <section id="quiz-5.9" class="slide level2">
 <h2>Quiz 5.9</h2>
 <div class="panel-tabset">
-<ul id="tabset-12" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-12-1">Solution</a></li></ul>
+<ul id="tabset-12" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-12-1">Question</a></li><li><a href="#tabset-12-2">Solution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-12-1">
-<div>
+<p>Make a time-series plot of ratio using ggplot.</p>
+<p>Hint <code>geom_line()</code>.</p>
+</div>
+<div id="tabset-12-2">
 <div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-35_cd16c368b0b407ae6f9f13697cdef0f3">
 <div class="sourceCode cell-code" id="cb124"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1"></a> new_joined_df <span class="sc">%&gt;%</span> </span>
 <span id="cb124-2"><a href="#cb124-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, ratio)) <span class="sc">+</span> </span>
 <span id="cb124-3"><a href="#cb124-3"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-35-1.png" width="960"></p>
-</div>
 </div>
 </div>
 </div>
