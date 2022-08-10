@@ -232,8 +232,8 @@ xc
 ## Quiz 5.1
 
 ```{r message = FALSE, warning = FALSE}
-join_data_1 <- read_csv("join_data1.csv")
-join_data_2 <- read_csv("join_data2.csv") 
+join_data_1 <- read_csv(here::here("data", "join_data1.csv"))
+join_data_2 <- read_csv(here::here("data", "join_data2.csv"))
 ```
 
 
