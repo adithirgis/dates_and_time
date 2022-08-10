@@ -6,6 +6,7 @@ format:
   revealjs:
     theme: [ppt_theme.scss]
     incremental: true
+    code-copy: true
    
 execute:
   echo: true
@@ -100,6 +101,7 @@ dmy("31-Jan-2022")
 
 ymd_hms("2022-01-31 20:11:59")
 ```
+
 ## From individual date-time components
 
 To create a date/time from this sort of input, use `make_date()` for dates, or `make_datetime()` for date-times.
@@ -112,6 +114,21 @@ new_flights_date <- flights %>%
   select(year, month, day, hour, minute) %>% 
   mutate(departure = make_datetime(year, month, day, hour, minute))
 ```
+
+
+## From individual date-time components
+
+To create a date/time from this sort of input, use `make_date()` for dates, or `make_datetime()` for date-times.
+
+```{r, `code-line-numbers` = "6"}
+new_flights <- flights %>% 
+  select(year, month, day, hour, minute)
+
+new_flights_date <- flights %>% 
+  select(year, month, day, hour, minute) %>% 
+  mutate(departure = make_datetime(year, month, day, hour, minute))
+```
+
 
 ##  From other types
 
@@ -127,7 +144,13 @@ Then we use `as_datetime()` and `as_date()`.
 as_datetime(now())
 as_date(now())
 ```
-## Quiz 1 
+
+
+## Quiz 1  {background-color="#f0f1eb"}
+
+::: {.panel-tabset}
+
+### Question
 
 ::: {.nonincremental}
 
@@ -147,12 +170,10 @@ d4 <- c("August 19 (2015)", "July 1 (2015)")
 d5 <- "12/30/14" # Dec 30, 2014
 
 :::
-
 ::: 
-
 :::
 
-## Quiz 1 - Solution
+### Solution
 
 Use the appropriate lubridate function to parse each of the following dates:
 
@@ -168,7 +189,14 @@ d4 <- mdy(c("August 19 (2015)", "July 1 (2015)"))
 d5 <- mdy("12/30/14") 
 ```
 
-## Quiz 2
+
+:::
+
+## Quiz 2 {background-color="#f0f1eb"}
+
+::: {.panel-tabset}
+
+### Question
 
 What happens when you parse a string which is not a valid date, like the one shown below:
 
@@ -176,13 +204,17 @@ What happens when you parse a string which is not a valid date, like the one sho
 ymd(c("2010-10-10", "bananas"))
 ```
 
-## Quiz 2 - Solution
+
+### Solution
 
 What happens when you parse a string which is not a valid date, like the one shown below:
 
 ```{r}
 ymd(c("2010-10-10", "bananas"))
 ```
+
+:::
+
 ## Manipulating date and time
 
 ::: {.nonincremental}
@@ -272,7 +304,11 @@ update(datetime, year = 2020, month = 2, mday = 2, hour = 2)
 
 ```
 
-## Quiz 3 
+## Quiz 3 {background-color="#f0f1eb"}
+
+::: {.panel-tabset}
+
+### Question
 
 ::: {.nonincremental}
 
@@ -288,8 +324,7 @@ our_new_dataset <- openair::mydata %>%
 
 :::
 
-
-## Quiz 3 - Solution
+### Solution
 
 ::: {.nonincremental}
 
@@ -303,8 +338,10 @@ our_new_mutated_dataset <- our_new_dataset %>%
 
 :::
 
+:::
 
-## Quiz 4
+
+## Quiz 4 {background-color="#f0f1eb"}
 
 ::: {.nonincremental}
 
@@ -427,9 +464,11 @@ ymd("2020-01-01") + dyears(1)
 
 ## Time zones
 
-::: {.nonincremental}
+::: {.panel-tabset}
 
--   The challenge is that everyday names of time zones tend to be ambiguous.
+### Available time zones
+
+::: {.nonincremental}
 
 -   You can find out what R thinks your current time zone is with `Sys.timezone()`.
 
@@ -443,7 +482,7 @@ head(OlsonNames())
 
 :::
 
-## Time zones 
+### Set time zone
 
 ::: {.nonincremental}
 
@@ -457,6 +496,9 @@ x4b
 ```
 
 :::
+
+:::
+
 
 ## Quiz 5 
 

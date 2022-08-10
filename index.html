@@ -491,25 +491,41 @@
 <span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">mutate</span>(<span class="at">departure =</span> <span class="fu">make_datetime</span>(year, month, day, hour, minute))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+<section id="from-individual-date-time-components-1" class="slide level2">
+<h2>From individual date-time components</h2>
+<p>To create a date/time from this sort of input, use <code>make_date()</code> for dates, or <code>make_datetime()</code> for date-times.</p>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-5_f7623fd4f784720c45f109b088c14c91">
+<div class="sourceCode cell-code" id="cb15" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>new_flights <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">select</span>(year, month, day, hour, minute)</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a>new_flights_date <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">select</span>(year, month, day, hour, minute) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">mutate</span>(<span class="at">departure =</span> <span class="fu">make_datetime</span>(year, month, day, hour, minute))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="from-other-types" class="slide level2">
 <h2>From other types</h2>
 <div>
 <p>Sometimes we may want to switch between a date-time and a date.</p>
 <p>Then we use <code>as_datetime()</code> and <code>as_date()</code>.</p>
 </div>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-5_1e76a62411c7433391e9ea15924e3810">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">as_datetime</span>(<span class="fu">now</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-6_0862fec9494a3c0beb17e8bd7f0965d5">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">as_datetime</span>(<span class="fu">now</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2022-08-09 12:28:56 UTC"</code></pre>
+<pre><code>[1] "2022-08-10 07:30:54 UTC"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">as_date</span>(<span class="fu">now</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">as_date</span>(<span class="fu">now</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2022-08-09"</code></pre>
+<pre><code>[1] "2022-08-10"</code></pre>
 </div>
 </div>
 </section>
-<section id="quiz-1" class="slide level2">
+<section id="quiz-1" class="slide level2" data-background-color="#f0f1eb">
 <h2>Quiz 1</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Question</a></li><li><a href="#tabset-1-2">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
 <div>
 <p>Use the appropriate lubridate function to parse each of the following dates:</p>
 <div class="columns">
@@ -522,36 +538,44 @@
 </div>
 </div>
 </div>
-</section>
-<section id="quiz-1---solution" class="slide level2">
-<h2>Quiz 1 - Solution</h2>
+</div>
+<div id="tabset-1-2">
 <p>Use the appropriate lubridate function to parse each of the following dates:</p>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-6_cbd5cf275e379c5d4b37be6ffcea3f1e">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">mdy</span>(<span class="st">"January 1, 2010"</span>)</span>
-<span id="cb19-2"><a href="#cb19-2"></a></span>
-<span id="cb19-3"><a href="#cb19-3"></a>d2 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2015-Mar-07"</span>)</span>
-<span id="cb19-4"><a href="#cb19-4"></a></span>
-<span id="cb19-5"><a href="#cb19-5"></a>d3 <span class="ot">&lt;-</span> <span class="fu">dmy</span>(<span class="st">"06-Jun-2017"</span>)</span>
-<span id="cb19-6"><a href="#cb19-6"></a></span>
-<span id="cb19-7"><a href="#cb19-7"></a>d4 <span class="ot">&lt;-</span> <span class="fu">mdy</span>(<span class="fu">c</span>(<span class="st">"August 19 (2015)"</span>, <span class="st">"July 1 (2015)"</span>))</span>
-<span id="cb19-8"><a href="#cb19-8"></a></span>
-<span id="cb19-9"><a href="#cb19-9"></a>d5 <span class="ot">&lt;-</span> <span class="fu">mdy</span>(<span class="st">"12/30/14"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-7_f81c167ee15ea64f7329a9100b226188">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">mdy</span>(<span class="st">"January 1, 2010"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a></span>
+<span id="cb20-3"><a href="#cb20-3"></a>d2 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2015-Mar-07"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4"></a></span>
+<span id="cb20-5"><a href="#cb20-5"></a>d3 <span class="ot">&lt;-</span> <span class="fu">dmy</span>(<span class="st">"06-Jun-2017"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6"></a></span>
+<span id="cb20-7"><a href="#cb20-7"></a>d4 <span class="ot">&lt;-</span> <span class="fu">mdy</span>(<span class="fu">c</span>(<span class="st">"August 19 (2015)"</span>, <span class="st">"July 1 (2015)"</span>))</span>
+<span id="cb20-8"><a href="#cb20-8"></a></span>
+<span id="cb20-9"><a href="#cb20-9"></a>d5 <span class="ot">&lt;-</span> <span class="fu">mdy</span>(<span class="st">"12/30/14"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </div>
 </section>
-<section id="quiz-2" class="slide level2">
+<section id="quiz-2" class="slide level2" data-background-color="#f0f1eb">
 <h2>Quiz 2</h2>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Question</a></li><li><a href="#tabset-2-2">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
 <p>What happens when you parse a string which is not a valid date, like the one shown below:</p>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-7_8fcc909b4aa99d94431d3f6f4b52c53f">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">ymd</span>(<span class="fu">c</span>(<span class="st">"2010-10-10"</span>, <span class="st">"bananas"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="quiz-2---solution" class="slide level2">
-<h2>Quiz 2 - Solution</h2>
-<p>What happens when you parse a string which is not a valid date, like the one shown below:</p>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-8_f7e220de2dd47bef141835c040c0e873">
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-8_47adae6525489e89cae2007393366e67">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">ymd</span>(<span class="fu">c</span>(<span class="st">"2010-10-10"</span>, <span class="st">"bananas"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-2">
+<p>What happens when you parse a string which is not a valid date, like the one shown below:</p>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-9_ff0fd39bcc4fa5f3925f53eb124578c0">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">ymd</span>(<span class="fu">c</span>(<span class="st">"2010-10-10"</span>, <span class="st">"bananas"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2010-10-10" NA          </code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -561,25 +585,25 @@
 <p>In <code>lubridate</code> you can get and set individual components.</p>
 <p>Pull out individual parts of the date with the accessor functions.</p>
 </div>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-9_6b20baa3680eb3cd35f9b838e952b7d4">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>datetime <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2022-07-08 12:34:56"</span>)</span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">year</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-10_c16a1dce3796591bb385758268e80ff1">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>datetime <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2022-07-08 12:34:56"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">year</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2022</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">month</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">month</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">mday</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">mday</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">yday</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">yday</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 189</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">wday</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">wday</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
@@ -591,28 +615,28 @@
 <p>Using relevant arguments will show us the month abbreviations or full names.</p>
 <p>Time components also extracted in the same way.</p>
 </div>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-10_4d8cbf42ba93d8b15337a5f07258e978">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">month</span>(datetime, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-11_a814b847d226517c53541151baed4c91">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">month</span>(datetime, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] Jul
 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">wday</span>(datetime, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">wday</span>(datetime, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] Friday
 7 Levels: Sunday &lt; Monday &lt; Tuesday &lt; Wednesday &lt; Thursday &lt; ... &lt; Saturday</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-11_d0a48f3d0e37c5dce03863a855dde303">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">hour</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-12_8fa8b9f8de6bcbe5af996ed8dc523abc">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">hour</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">minute</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">minute</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 34</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">second</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">second</span>(datetime)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 56</code></pre>
 </div>
@@ -623,17 +647,17 @@
 <div>
 <p>An alternative approach to plotting individual components is to round the date to a nearby unit of time, with <code>floor_date()</code>, <code>round_date()</code>, and <code>ceiling_date()</code>.</p>
 <p>Each function takes a vector of dates to adjust and then the name of the unit round down (floor), round up (ceiling), or round to.</p>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-12_9fa268d2eb70b686c279c28ef8ec25cd">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>datetime <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2022-07-08 12:34:56"</span>)</span>
-<span id="cb43-2"><a href="#cb43-2"></a><span class="fu">ceiling_date</span>(datetime, <span class="st">"min"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-13_b729a0bddd6880cff7a6a2ac3cf973f9">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>datetime <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2022-07-08 12:34:56"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2"></a><span class="fu">ceiling_date</span>(datetime, <span class="st">"min"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2022-07-08 12:35:00 UTC"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">floor_date</span>(datetime, <span class="st">"hour"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">floor_date</span>(datetime, <span class="st">"hour"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2022-07-08 12:00:00 UTC"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">round_date</span>(datetime, <span class="st">"month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">round_date</span>(datetime, <span class="st">"month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2022-07-01 UTC"</code></pre>
 </div>
@@ -644,23 +668,23 @@
 <h2>Setting components</h2>
 <div>
 <p>We can use each accessor function to set the components of a date/time.</p>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-13_0efa7b18615fc52f16b3a0d0797f9ffc">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>(datetime <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2020-07-08 12:34:56"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-14_491d87aadb786dc8428dc16dc16d30e3">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>(datetime <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2020-07-08 12:34:56"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2020-07-08 12:34:56 UTC"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">year</span>(datetime) <span class="ot">&lt;-</span> <span class="dv">2022</span></span>
-<span id="cb51-2"><a href="#cb51-2"></a>datetime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">year</span>(datetime) <span class="ot">&lt;-</span> <span class="dv">2022</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a>datetime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2022-07-08 12:34:56 UTC"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">month</span>(datetime) <span class="ot">&lt;-</span> <span class="dv">08</span></span>
-<span id="cb53-2"><a href="#cb53-2"></a>datetime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">month</span>(datetime) <span class="ot">&lt;-</span> <span class="dv">08</span></span>
+<span id="cb54-2"><a href="#cb54-2"></a>datetime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2022-08-08 12:34:56 UTC"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">hour</span>(datetime) <span class="ot">&lt;-</span> <span class="fu">hour</span>(datetime) <span class="sc">+</span> <span class="dv">2</span></span>
-<span id="cb55-2"><a href="#cb55-2"></a>datetime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="fu">hour</span>(datetime) <span class="ot">&lt;-</span> <span class="fu">hour</span>(datetime) <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb56-2"><a href="#cb56-2"></a>datetime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2022-08-08 14:34:56 UTC"</code></pre>
 </div>
@@ -669,41 +693,47 @@
 </section>
 <section id="or-use-a-new-function-update" class="slide level2">
 <h2>Or use a new function <code>update()</code></h2>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-14_9d43cfd5b37664b89382cf6a675e3b28">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>(datetime <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2020-07-08 12:34:56"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-15_0c82177f8cab33c2084441587223ea3a">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>(datetime <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2020-07-08 12:34:56"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2020-07-08 12:34:56 UTC"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="fu">update</span>(datetime, <span class="at">year =</span> <span class="dv">2020</span>, <span class="at">month =</span> <span class="dv">2</span>, <span class="at">mday =</span> <span class="dv">2</span>, <span class="at">hour =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="fu">update</span>(datetime, <span class="at">year =</span> <span class="dv">2020</span>, <span class="at">month =</span> <span class="dv">2</span>, <span class="at">mday =</span> <span class="dv">2</span>, <span class="at">hour =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2020-02-02 02:34:56 UTC"</code></pre>
 </div>
 </div>
 </section>
-<section id="quiz-3" class="slide level2">
+<section id="quiz-3" class="slide level2" data-background-color="#f0f1eb">
 <h2>Quiz 3</h2>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Question</a></li><li><a href="#tabset-3-2">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
 <div>
 <p>Extract month, year, and day from the data shown below, make three new columns of these. Hint use mutate(). You will have to install package called <code>openair</code> and then load it.</p>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-15_6769281cc833123d474feb44ce93e748">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="co"># install.packages("openair")</span></span>
-<span id="cb61-2"><a href="#cb61-2"></a><span class="fu">library</span>(openair)</span>
-<span id="cb61-3"><a href="#cb61-3"></a>our_new_dataset <span class="ot">&lt;-</span> openair<span class="sc">::</span>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb61-4"><a href="#cb61-4"></a>  <span class="fu">head</span>(<span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-16_4e68db2574b215cc51a06b4b100343f5">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="co"># install.packages("openair")</span></span>
+<span id="cb62-2"><a href="#cb62-2"></a><span class="fu">library</span>(openair)</span>
+<span id="cb62-3"><a href="#cb62-3"></a>our_new_dataset <span class="ot">&lt;-</span> openair<span class="sc">::</span>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb62-4"><a href="#cb62-4"></a>  <span class="fu">head</span>(<span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-</section>
-<section id="quiz-3---solution" class="slide level2">
-<h2>Quiz 3 - Solution</h2>
+</div>
+<div id="tabset-3-2">
 <div>
 <p>Extract month and year from the data shown below, make three new columns of these.</p>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-16_a27f6216ca03f2c3340b93dc502a41cd">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>our_new_mutated_dataset <span class="ot">&lt;-</span> our_new_dataset <span class="sc">%&gt;%</span> </span>
-<span id="cb62-2"><a href="#cb62-2"></a>  <span class="fu">mutate</span>(<span class="at">year_new_column =</span> <span class="fu">year</span>(date), </span>
-<span id="cb62-3"><a href="#cb62-3"></a>         <span class="at">month_new_column =</span> <span class="fu">month</span>(date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-17_1abe55b2f9f751a32baf27294a9ea9b0">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>our_new_mutated_dataset <span class="ot">&lt;-</span> our_new_dataset <span class="sc">%&gt;%</span> </span>
+<span id="cb63-2"><a href="#cb63-2"></a>  <span class="fu">mutate</span>(<span class="at">year_new_column =</span> <span class="fu">year</span>(date), </span>
+<span id="cb63-3"><a href="#cb63-3"></a>         <span class="at">month_new_column =</span> <span class="fu">month</span>(date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
-<section id="quiz-4" class="slide level2">
+<section id="quiz-4" class="slide level2" data-background-color="#f0f1eb">
 <h2>Quiz 4</h2>
 <div>
 <p>Using the data frame created above <code>our_new_mutated_dataset</code> set the year values to <code>2022</code> instead of <code>1998</code>.</p>
@@ -741,15 +771,15 @@
 <li><p>A <code>difftime</code> class object records a time span of seconds, minutes, hours, days, or weeks.</p></li>
 <li><p>This ambiguity can make <code>difftimes</code> a little painful to work with, so <code>lubridate</code> provides an alternative which always uses seconds: the duration.</p></li>
 </ul>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-17_66cd9655c7b36145020e80ac7b31e80a">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>my_age <span class="ot">&lt;-</span> <span class="fu">today</span>() <span class="sc">-</span> <span class="fu">ymd</span>(<span class="st">"1995-03-27"</span>)</span>
-<span id="cb63-2"><a href="#cb63-2"></a>my_age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-18_967f57902b5972eae5d7201bf2b593d1">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>my_age <span class="ot">&lt;-</span> <span class="fu">today</span>() <span class="sc">-</span> <span class="fu">ymd</span>(<span class="st">"1995-03-27"</span>)</span>
+<span id="cb64-2"><a href="#cb64-2"></a>my_age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 9997 days</code></pre>
+<pre><code>Time difference of 9998 days</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="fu">as.duration</span>(my_age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a><span class="fu">as.duration</span>(my_age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "863740800s (~27.37 years)"</code></pre>
+<pre><code>[1] "863827200s (~27.37 years)"</code></pre>
 </div>
 </div>
 </div>
@@ -758,29 +788,29 @@
 <h2>Durations</h2>
 <div>
 <p>Durations come with a bunch of convenient constructors:</p>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-18_dd59df116cf7da279fd5e83605b76911">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a><span class="fu">dseconds</span>(<span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-19_bc882be5831e0ad6fc4671fdffadea4d">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a><span class="fu">dseconds</span>(<span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "15s"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a><span class="fu">dminutes</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a><span class="fu">dminutes</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "600s (~10 minutes)"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a><span class="fu">dhours</span>(<span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">24</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a><span class="fu">dhours</span>(<span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">24</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "43200s (~12 hours)" "86400s (~1 days)"  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a><span class="fu">ddays</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a><span class="fu">ddays</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "0s"                "86400s (~1 days)"  "172800s (~2 days)"
 [4] "259200s (~3 days)" "345600s (~4 days)" "432000s (~5 days)"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a><span class="fu">dweeks</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a><span class="fu">dweeks</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "1814400s (~3 weeks)"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1"></a><span class="fu">dyears</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a><span class="fu">dyears</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "31557600s (~1 years)"</code></pre>
 </div>
@@ -790,22 +820,22 @@
 <section id="airthmetic-with-durations" class="slide level2">
 <h2>Airthmetic with Durations</h2>
 <div>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-19_f617dbebba65a64a5763290dbf894732">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">dyears</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-20_513207e88c9055c016f059c416a7968a">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">dyears</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "63115200s (~2 years)"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1"></a><span class="fu">dyears</span>(<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">dweeks</span>(<span class="dv">12</span>) <span class="sc">+</span> <span class="fu">dhours</span>(<span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a><span class="fu">dyears</span>(<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">dweeks</span>(<span class="dv">12</span>) <span class="sc">+</span> <span class="fu">dhours</span>(<span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "38869200s (~1.23 years)"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1"></a><span class="fu">today</span>() <span class="sc">+</span> <span class="fu">ddays</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a><span class="fu">today</span>() <span class="sc">+</span> <span class="fu">ddays</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2022-08-10"</code></pre>
+<pre><code>[1] "2022-08-11"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a><span class="fu">today</span>() <span class="sc">-</span> <span class="fu">dyears</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a><span class="fu">today</span>() <span class="sc">-</span> <span class="fu">dyears</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2021-08-08 18:00:00 UTC"</code></pre>
+<pre><code>[1] "2021-08-09 18:00:00 UTC"</code></pre>
 </div>
 </div>
 </div>
@@ -814,9 +844,9 @@
 <h2>Periods</h2>
 <div>
 <p>Periods are time spans but don’t have a fixed length in seconds, instead they work with “human” times, like days and months.</p>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-20_bd357d0daa21f492979384a9959ea133">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a>one_pm <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2022-04-12 13:00:00"</span>, <span class="at">tz =</span> <span class="st">"America/New_York"</span>)</span>
-<span id="cb87-2"><a href="#cb87-2"></a>one_pm <span class="sc">+</span> <span class="fu">ddays</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-21_6b9504f72615b4c45aca66b6b97e280b">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a>one_pm <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2022-04-12 13:00:00"</span>, <span class="at">tz =</span> <span class="st">"America/New_York"</span>)</span>
+<span id="cb88-2"><a href="#cb88-2"></a>one_pm <span class="sc">+</span> <span class="fu">ddays</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2022-04-13 13:00:00 EDT"</code></pre>
 </div>
@@ -827,25 +857,25 @@
 <h2>Manipulate Periods</h2>
 <div>
 <p>Periods come with a bunch of convenient constructors:</p>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-21_b2a38558c90cd922da0d5adb5c56fbe3">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a><span class="fu">seconds</span>(<span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-22_7d66ad02f6edd6a0aff1f9490046c77c">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a><span class="fu">seconds</span>(<span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "15S"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a><span class="fu">hours</span>(<span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">24</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a><span class="fu">hours</span>(<span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">24</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "12H 0M 0S" "24H 0M 0S"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a><span class="fu">days</span>(<span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a><span class="fu">days</span>(<span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "7d 0H 0M 0S"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1"></a><span class="fu">months</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1"></a><span class="fu">months</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "1m 0d 0H 0M 0S" "2m 0d 0H 0M 0S" "3m 0d 0H 0M 0S" "4m 0d 0H 0M 0S"
 [5] "5m 0d 0H 0M 0S" "6m 0d 0H 0M 0S"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1"></a><span class="fu">weeks</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a><span class="fu">weeks</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "21d 0H 0M 0S"</code></pre>
 </div>
@@ -854,12 +884,12 @@
 </section>
 <section id="airthmetic-with-periods" class="slide level2">
 <h2>Airthmetic with Periods</h2>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-22_de98d14407109a7626807cf255d874fc">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1"></a><span class="dv">10</span> <span class="sc">*</span> (<span class="fu">months</span>(<span class="dv">6</span>) <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-23_313a1d5ec063f7bfb015817b6d7ee30b">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1"></a><span class="dv">10</span> <span class="sc">*</span> (<span class="fu">months</span>(<span class="dv">6</span>) <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "60m 10d 0H 0M 0S"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1"></a><span class="fu">ymd</span>(<span class="st">"2020-01-01"</span>) <span class="sc">+</span> <span class="fu">dyears</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1"></a><span class="fu">ymd</span>(<span class="st">"2020-01-01"</span>) <span class="sc">+</span> <span class="fu">dyears</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2020-12-31 06:00:00 UTC"</code></pre>
 </div>
@@ -867,47 +897,52 @@
 </section>
 <section id="time-zones" class="slide level2">
 <h2>Time zones</h2>
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Available time zones</a></li><li><a href="#tabset-4-2">Set time zone</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1">
 <div>
 <ul>
-<li><p>The challenge is that everyday names of time zones tend to be ambiguous.</p></li>
 <li><p>You can find out what R thinks your current time zone is with <code>Sys.timezone()</code>.</p></li>
 <li><p>In R, the time zone is an attribute of the date-time that only controls printing. Unless otherwise specified, lubridate always uses UTC.</p></li>
 </ul>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-23_9e325f45b99b1e01fb7b3662100a8cae">
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1"></a><span class="fu">Sys.timezone</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-24_e94c17b28b748504bb0720c2c3089341">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1"></a><span class="fu">Sys.timezone</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Asia/Calcutta"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1"></a><span class="fu">head</span>(<span class="fu">OlsonNames</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1"></a><span class="fu">head</span>(<span class="fu">OlsonNames</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"
 [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"     </code></pre>
 </div>
 </div>
 </div>
-</section>
-<section id="time-zones-1" class="slide level2">
-<h2>Time zones</h2>
+</div>
+<div id="tabset-4-2">
 <div>
 <ul>
 <li>Keep the instant in time the same, and change how it’s displayed. Use this when the instant is correct, but you want a more natural display.</li>
 </ul>
-<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-24_17599bfe965ddd016b40b61610833d0e">
-<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1"></a>x4a <span class="ot">&lt;-</span> <span class="fu">with_tz</span>(<span class="st">"2022-06-02 02:30:00"</span>, <span class="at">tzone =</span> <span class="st">"Asia/Kolkata"</span>)</span>
-<span id="cb107-2"><a href="#cb107-2"></a>x4a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-25_7a86e81d720b6e78564ea1a26925dba7">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1"></a>x4a <span class="ot">&lt;-</span> <span class="fu">with_tz</span>(<span class="st">"2022-06-02 02:30:00"</span>, <span class="at">tzone =</span> <span class="st">"Asia/Kolkata"</span>)</span>
+<span id="cb108-2"><a href="#cb108-2"></a>x4a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2022-06-02 02:30:00 IST"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1"></a>x4b <span class="ot">&lt;-</span> <span class="fu">force_tz</span>(x4a, <span class="at">tzone =</span> <span class="st">"America/New_York"</span>)</span>
-<span id="cb109-2"><a href="#cb109-2"></a>x4b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1"></a>x4b <span class="ot">&lt;-</span> <span class="fu">force_tz</span>(x4a, <span class="at">tzone =</span> <span class="st">"America/New_York"</span>)</span>
+<span id="cb110-2"><a href="#cb110-2"></a>x4b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2022-06-02 02:30:00 EDT"</code></pre>
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 </section>
-<section id="time-zone" class="slide level2">
-<h2>Time zone</h2>
+<section id="quiz-5" class="slide level2">
+<h2>Quiz 5</h2>
 </section>
 <section id="resources" class="slide level2">
 <h2>Resources</h2>
