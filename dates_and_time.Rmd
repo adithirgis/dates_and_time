@@ -13,6 +13,7 @@ output:
 
 ```{r warning = FALSE, message = FALSE}
 library(tidyverse) 
+# install.packages("lubridate")
 library(lubridate)
 library(nycflights13)
 library(openair)
@@ -40,11 +41,11 @@ ymd_hms("2022-01-31 20:11:59")
 
 
 ```{r}
+glimpse(flights)
 new_flights <- flights %>% 
   select(year, month, day, hour, minute)
 
-new_flights_date <- flights %>% 
-  select(year, month, day, hour, minute) %>% 
+new_flights_date <- new_flights %>% 
   mutate(departure = make_datetime(year, month, day, hour, minute))
 ```
 
@@ -79,7 +80,7 @@ ymd(c("2010-10-10", "bananas"))
 ## Manipulating date and time 
 
 ```{r}
-datetime <- ymd_hms("2022-07-08 12:34:56")
+datetime <- ymd_hms("2022/Jul/08 12:34:56")
 year(datetime)
 month(datetime)
 mday(datetime)
@@ -91,8 +92,8 @@ wday(datetime)
 ## Date time components
 
 ```{r}
-month(datetime, label = TRUE)
-wday(datetime, label = TRUE, abbr = FALSE)
+month(datetime, label = TRUE, abbr = FALSE)
+wday(datetime)
 ```
 
 ```{r}
@@ -104,7 +105,8 @@ second(datetime)
 ## Rounding
 
 ```{r}
-datetime <- ymd_hms("2022-07-08 12:34:56")
+datetime <- "2022-Jul-08 12:34:56"
+datetime <- ymd_hms(datetime)
 ceiling_date(datetime, "min")
 floor_date(datetime, "hour")
 round_date(datetime, "month")
@@ -113,7 +115,7 @@ round_date(datetime, "month")
 ## Setting components
 
 ```{r}
-(datetime <- ymd_hms("2020-07-08 12:34:56"))
+(datetime <- ymd_hms("2020-Jul-08 12:34:56"))
 
 year(datetime) <- 2022
 datetime
@@ -129,9 +131,9 @@ datetime
 ## Using `update()` 
 
 ```{r}
-(datetime <- ymd_hms("2020-07-08 12:34:56"))
+(datetime <- ymd_hms("2020-Jul-08 12:34:56"))
 
-update(datetime, year = 2020, month = 2, mday = 2, hour = 2)
+update(datetime, year = 2022, month = 08, mday = 12, hour = 21)
 
 ```
 
@@ -148,7 +150,10 @@ our_new_dataset <- openair::mydata %>%
 ```{r}
 our_new_mutated_dataset <- our_new_dataset %>% 
   mutate(year_new_column = year(date), 
-         month_new_column = month(date))
+         month_new_column = month(date),
+         day_new_column = mday(date))
+
+year(our_new_mutated_dataset$date) <- 2022
 ```
 
 ## Durations 

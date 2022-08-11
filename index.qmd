@@ -350,14 +350,14 @@ Using the data frame created above `our_new_mutated_dataset` set the year values
 ::: columns
 ::: {.column width="100%"}
 
-a)    floor_date(our_new_mutated_dataset$year_new_column, "year")
-b)    ymd(our_new_mutated_dataset$year_new_column) 
+a)    floor_date(our_new_mutated_dataset$date, "year")
+b)    ymd(our_new_mutated_dataset$date) 
 
 ::: {.fragment .highlight-red}
-c)   year(our_new_mutated_dataset$year_new_column) <- 2022 
+c)   year(our_new_mutated_dataset$date) <- 2022 
 :::
 
-d)    year(year_new_column) <- 2022 
+d)    year(date) <- 2022 
 :::
 
 :::
