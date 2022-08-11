@@ -533,7 +533,7 @@ xc
 ### Question
 
 
-Read two files provided in the [link](https://drive.google.com/drive/folders/1azPWXaNOyhQB1js3Ne-xt_efFeWyuYnT) and name them as join_data_1 and join_data_2 accordingly. 
+Read two files provided in the [link](https://drive.google.com/drive/folders/1azPWXaNOyhQB1js3Ne-xt_efFeWyuYnT) and name them as join_data_1 and join_data_2 accordingly. Next also look at the various statistics of these files.
 
 Hint `read_csv()` and `summary()`.
 
